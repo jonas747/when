@@ -23,45 +23,47 @@ func (c *Context) Time(t time.Time) (time.Time, error) {
 		t = t.Add(c.Duration)
 	}
 
+	year, month, day := t.Date()
+
 	if c.Year != nil {
-		t = time.Date(*c.Year, t.Month(), t.Day(), t.Hour(),
-			t.Minute(), t.Second(), t.Nanosecond(), t.Location())
+		year = *c.Year
 	}
 
 	if c.Month != nil {
-		t = time.Date(t.Year(), time.Month(*c.Month), t.Day(),
-			t.Hour(), t.Minute(), t.Second(), t.Nanosecond(), t.Location())
+		month = time.Month(*c.Month)
 	}
+
+	if c.Day != nil {
+		day = *c.Day
+	}
+
+	hour, min, sec := t.Clock()
+
+	if c.Hour != nil {
+		hour = *c.Hour
+	}
+
+	if c.Minute != nil {
+		min = *c.Minute
+	}
+
+	if c.Second != nil {
+		sec = *c.Second
+	}
+
+	loc := t.Location()
+
+	if c.Location != nil {
+		loc = c.Location
+	}
+
+	t = time.Date(year, month, day, hour,
+		min, sec, 0, loc)
 
 	if c.Weekday != nil {
 		diff := int(time.Weekday(*c.Weekday) - t.Weekday())
 		t = time.Date(t.Year(), t.Month(), t.Day()+diff, t.Hour(),
 			t.Minute(), t.Second(), t.Nanosecond(), t.Location())
-	}
-
-	if c.Day != nil {
-		t = time.Date(t.Year(), t.Month(), *c.Day, t.Hour(),
-			t.Minute(), t.Second(), t.Nanosecond(), t.Location())
-	}
-
-	if c.Hour != nil {
-		t = time.Date(t.Year(), t.Month(), t.Day(), *c.Hour,
-			t.Minute(), t.Second(), t.Nanosecond(), t.Location())
-	}
-
-	if c.Minute != nil {
-		t = time.Date(t.Year(), t.Month(), t.Day(), t.Hour(),
-			*c.Minute, t.Second(), t.Nanosecond(), t.Location())
-	}
-
-	if c.Second != nil {
-		t = time.Date(t.Year(), t.Month(), t.Day(), t.Hour(),
-			t.Minute(), *c.Second, t.Nanosecond(), t.Location())
-	}
-
-	if c.Location != nil {
-		t = time.Date(t.Year(), t.Month(), t.Day(), t.Hour(),
-			t.Minute(), t.Second(), t.Nanosecond(), c.Location)
 	}
 
 	return t, nil

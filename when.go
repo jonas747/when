@@ -4,11 +4,11 @@ import (
 	"sort"
 	"time"
 
-	"github.com/olebedev/when/rules"
-	"github.com/olebedev/when/rules/common"
-	"github.com/olebedev/when/rules/en"
-	"github.com/olebedev/when/rules/ru"
-	"github.com/olebedev/when/rules/br"
+	"github.com/jonas747/when/rules"
+	"github.com/jonas747/when/rules/br"
+	"github.com/jonas747/when/rules/common"
+	"github.com/jonas747/when/rules/en"
+	"github.com/jonas747/when/rules/ru"
 	"github.com/pkg/errors"
 )
 
