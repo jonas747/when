@@ -1,5 +1,7 @@
 module github.com/jonas747/when
 
+go 1.14
+
 require (
 	github.com/AlekSi/pointer v1.0.0
 	github.com/davecgh/go-spew v1.1.1 // indirect
