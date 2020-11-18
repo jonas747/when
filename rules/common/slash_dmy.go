@@ -49,6 +49,9 @@ func SlashDMY(s rules.Strategy) rules.Rule {
 
 			day, _ := strconv.Atoi(m.Captures[0])
 			month, _ := strconv.Atoi(m.Captures[1])
+			if month > 12 {
+				month = 12
+			}
 			year := -1
 			if m.Captures[2] != "" {
 				year, _ = strconv.Atoi(m.Captures[2])
